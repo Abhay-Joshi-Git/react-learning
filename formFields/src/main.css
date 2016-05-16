@@ -1,0 +1,20 @@
+body {
+    margin-top: 10px;
+}
+
+.pos-center {
+    text-align: center;
+}
+
+.container {
+    maring: 10px 10px;
+}
+
+.container-color {
+    background-color: #f8f8f8;
+}
+
+.invalid-input {
+    border-color: red !important;
+    border-width: 1px;
+}
