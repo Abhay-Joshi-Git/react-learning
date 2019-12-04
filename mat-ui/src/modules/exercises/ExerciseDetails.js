@@ -2,7 +2,7 @@ import React from "react";
 import { Typography, Paper, Box } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import { getExerciseById } from "./exercise.service";
-import { LabelText } from 'components/text'
+import { LabelText } from "components/text";
 
 const exerciseDetailsStyle = {
 	root: {
@@ -11,9 +11,11 @@ const exerciseDetailsStyle = {
 	body: {
 		textAlign: "left",
 		padding: 16
+	},
+	inlineText: {
+		display: 'inline-block'
 	}
 };
-
 
 const ExerciseDetails = ({ classesFromParent, classes, selectedExercise }) => {
 	const exercise = selectedExercise
@@ -25,11 +27,14 @@ const ExerciseDetails = ({ classesFromParent, classes, selectedExercise }) => {
 				<>
 					<Typography variant="h5">{exercise.title}</Typography>
 					<Box className={classes.body}>
-						<Typography variant="body1">
-							<LabelText>Description: </LabelText>{exercise.description}
+						<LabelText variant="body1" className={classes.inlineText}>Description: </LabelText>
+						<Typography variant="body1" className={classes.inlineText}>
+							{exercise.description}
 						</Typography>
-						<Typography variant="body1">
-							<LabelText>Muscles: </LabelText>{exercise.muscles}
+						<br />
+						<LabelText className={classes.inlineText}>Muscles: </LabelText>
+						<Typography variant="body1" className={classes.inlineText}>
+							{exercise.muscles}
 						</Typography>
 					</Box>
 				</>

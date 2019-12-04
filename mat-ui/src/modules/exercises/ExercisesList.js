@@ -15,12 +15,14 @@ const listStyle = {
 const ExercisesList = ({ classesFromParent, classes, exercises, selectedMuscle, onExerciseSelect }) => (
 	<Paper className={classesFromParent.Paper}>
 		{selectedMuscle ? (
-			<>
+			<List>
 				<ListItem button>
 					<ListItemText className={classes.listItem} primary={selectedMuscle} />
 				</ListItem>
-				<MuscleListItem classesFromParent={classes} exercises={exercises} onExerciseSelect={onExerciseSelect} />
-			</>
+				{exercises.map((exercise) => (
+					<MuscleListItem key={exercise.title} classesFromParent={classes} exercise={exercise} onExerciseSelect={onExerciseSelect} />
+				))}
+			</List>
 		) : (
 			<List>
 				{Object.keys(exercises).map((key, index) => (
@@ -28,7 +30,9 @@ const ExercisesList = ({ classesFromParent, classes, exercises, selectedMuscle, 
 						<ListItem button>
 							<ListItemText className={classes.listItem} primary={key} />
 						</ListItem>
-						<MuscleListItem classesFromParent={classes} onExerciseSelect={onExerciseSelect} exercises={exercises[key]} />
+						{exercises[key].map(exercise => (
+							<MuscleListItem  key={exercise.title} classesFromParent={classes} exercise={exercise} onExerciseSelect={onExerciseSelect} />
+						))}
 					</Fragment>
 				))}
 			</List>
@@ -36,19 +40,26 @@ const ExercisesList = ({ classesFromParent, classes, exercises, selectedMuscle, 
 	</Paper>
 );
 
-const MuscleListItem = ({ exercises, classesFromParent, onExerciseSelect }) => (
-	<>
-		{exercises.map(({ title, id }) => (
-			<ListItem button key={title} onClick={() => onExerciseSelect(id)}>
-				<ListItemText className={`${classesFromParent.muscleItem}`} primary={title} />
-				<ListItemSecondaryAction>
-              <IconButton edge="end" aria-label="comments">
-                <MoreVertIcon />
-              </IconButton>
-            </ListItemSecondaryAction>
-			</ListItem>
-		))}
-	</>
+const MuscleListItem = ({ exercise: { title, id }, classesFromParent, onExerciseSelect }) => (
+	<ListItem button onClick={() => onExerciseSelect(id)}>
+		<ListItemText className={`${classesFromParent.muscleItem}`} primary={title} />
+		<ListItemSecondaryAction>
+			<IconButton edge="end" aria-label="comments">
+				<MoreVertIcon />
+			</IconButton>
+			{/* <Menu
+        id="simple-menu"
+        anchorEl={anchorEl}
+        keepMounted
+        open={Boolean(anchorEl)}
+        onClose={handleClose}
+      >
+        <MenuItem onClick={handleClose}>Profile</MenuItem>
+        <MenuItem onClick={handleClose}>My account</MenuItem>
+        <MenuItem onClick={handleClose}>Logout</MenuItem>
+      </Menu> */}
+		</ListItemSecondaryAction>
+	</ListItem>
 );
 
 export default withStyles(listStyle)(ExercisesList);
